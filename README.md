@@ -423,119 +423,47 @@ are presented as plausible context rather than confirmed causes.
 
 ## PostgreSQL Connection
 
-The analysis uses a PostgreSQL database containing the sales data. The Power BI dashboard connects directly to this database to retrieve the data used in the analysis.
+The analysis uses a PostgreSQL database containing the sales data. The Power BI dashboard connects directly to this database.
 
-### 1. Download the database
+Download the database using the link provided in the Dataset section.
+Install PostgreSQL if needed and restore the database as contoso_100k.
+Open the .pbix file in Power BI Desktop. If needed, update the PostgreSQL connection under Home → Transform data → Data source settings and enter your own credentials.
+Refresh the dashboard using Home → Refresh.
 
-Download the `contoso_100k` database using the link provided in the **Dataset** section above.
+The Power BI model uses the cohort_analysis_view and date table. The sales table is used as the underlying source for the PostgreSQL view and does not need to be loaded into the Power BI model.
 
-### 2. Install PostgreSQL
-
-If PostgreSQL is not already installed, download it from the official PostgreSQL website:
-
-[PostgreSQL](https://www.postgresql.org/download/)
-
-### 3. Restore the database
-
-Restore the downloaded database in PostgreSQL and make sure the database is named:
-
-```text
-contoso_100k
-```
-
-The project uses the default PostgreSQL configuration:
-
-```text
-Server: localhost
-Port: 5432
-Database: contoso_100k
-```
-
-### 4. Connect Power BI to PostgreSQL
-
-Open the `.pbix` file in **Power BI Desktop**.
-
-If Power BI cannot find the original data source, go to:
-
-**Home → Transform data → Data source settings**
-
-Select the PostgreSQL data source and update the connection to match your local PostgreSQL installation.
-
-When prompted, enter your own PostgreSQL username and password.
-
-> **Important:** Database credentials are not stored in this repository. Each user must use their own PostgreSQL credentials.
-
-### 5. Verify the Power BI data sources
-
-Open **Transform data** to access Power Query and verify that the queries are connected successfully.
-
-Not every PostgreSQL table needs to be loaded into the Power BI data model.
-
-For example, the `sales` table is used as an underlying source for the PostgreSQL `cohort_analysis_view`, but it does not need to be loaded into the Power BI model itself.
-
-Therefore, `sales` can have **Enable load** disabled in Power BI while still being used by the PostgreSQL view.
-
-The data flow is:
-
-```text
-PostgreSQL
-    │
-    ├── sales
-    │
-    └── cohort_analysis_view
-             │
-             ▼
-        Power BI / Power Query
-             │
-             ▼
-          Data Model
-             │
-             ▼
-          Dashboard
-```
-
-### 6. Refresh the dashboard
-
-Once the PostgreSQL connection has been configured, select:
-
-**Home → Refresh**
-
-Power BI will retrieve the data from PostgreSQL and update the dashboard.
-
-The dashboard should then be reproducible using the downloaded database and the local PostgreSQL connection.
+Note: Database credentials are not stored in this repository. Users must connect using their own PostgreSQL credentials.
 
 ## Power BI Dashboard
 
-The analysis is presented through an interactive Power BI dashboard designed to explore revenue performance, customer behavior, and cohort performance.
+The analysis is presented through an interactive Power BI dashboard focused on revenue performance, customer behavior, and cohort analysis.
 
-### Dashboard Overview
+The dashboard includes:
 
-The dashboard includes interactive filters and visualizations that allow users to explore the analysis within each dashboard page.
+- Revenue and customer KPIs
+- Customer and order trends
+- New vs. existing customer analysis
+- Revenue per customer
+- Cohort and retention analysis
+- Interactive filters and selected visual interactions
+- Reset button to return to the initial view
 
-Key elements include:
-
-* **Revenue and customer KPIs**
-* **Customer and order trends**
-* **New vs. existing customer analysis**
-* **Revenue per customer**
-* **Cohort analysis**
-* **Retention analysis**
-* **Interactive filters and selected visual interactions**
-* **Reset/Clear buttons** 
-
-Interactions are configured selectively within each page to keep the dashboard focused and avoid unnecessary cross-highlighting between visuals.
-
-For example, on the **Dashboard** page, selecting a month allows users to explore its effect on relevant customer, order, and country visuals, while the cohort analysis remains independent.
-
-On the **Customer Analysis** page, the main visuals are intentionally independent from one another, allowing each chart to be analyzed separately without unnecessary cross-highlighting.
-
-### Reproducibility
-
-The Power BI dashboard connects to the PostgreSQL database described in the [PostgreSQL Connection](#postgresql-connection) section.
-
-After configuring the PostgreSQL connection with the local database, open the `.pbix` file in Power BI Desktop and refresh the data to reproduce the dashboard.
+Interactions are configured selectively to keep the analysis focused. On the Dashboard page, the year selector focuses on the 2020 and 2023 revenue declines, while month selections affect only relevant visuals. The Customer Analysis visuals are intentionally independent to avoid unnecessary cross-highlighting.
 
 ### Dashboard Screenshots
 
-Screenshots of the main dashboard pages are included below to provide an overview of the final report layout and visualizations.
+![Dashboard](/images/8_Dashboard.png)
 
+*Dashboard focused on the 2020 and 2023 revenue declines, with KPIs and comparisons to the previous year.*  
+
+![Customer Analysis](/images/8_Customer%20Analysis.png)
+
+*Customer-focused analysis providing deeper insight into customer behavior and revenue performance.*
+
+## Tools & Technologies
+
+* **PostgreSQL & DBeaver** — SQL analysis and database management
+* **Python, Pandas** — data analysis and manipulation
+* **Matplotlib & Seaborn** — data visualization
+* **Power BI & Power Query** — dashboard development and data transformation
+* **Jupyter Notebook** — Python analysis and visualization
