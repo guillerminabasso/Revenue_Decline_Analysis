@@ -1,6 +1,6 @@
 # Revenue Decline Analysis
 
-## Overview
+## 🔹Overview
 
 This project started as a SQL tutorial exercise focused on analyzing sales data. After completing the initial analysis, I decided to expand the project independently by investigating a business question that emerged from the data: **Why did revenue decline in 2020 and 2023?**
 
@@ -8,7 +8,7 @@ I developed my own analytical approach, progressively breaking down revenue into
 
 **Project structure:** The sql folder contains the queries used throughout the analysis, including supporting queries used during the exploratory phase and a helper view (00_cohort_analysis_view.sql) required by subsequent analyses.
 
-## Dataset
+## 🔹Dataset
 
 The analysis is based on the **Contoso** sample sales dataset — a synthetic dataset used by Microsoft to simulate a fictional retail company's business scenarios. It was obtained via Luke Barousse's ["Intermediate SQL for Data Analytics"](https://www.lukebarousse.com/int-sql) course, and covers the period from **2015-01-01 to 2024-04-20** (the 2024 period is partial, which is why it was excluded from the year-over-year decline analysis).
 
@@ -33,7 +33,7 @@ The analysis is based on a sales dataset (originally used for a SQL tutorial) co
 **Data quality notes:**
 - `customerkey` and `orderdate` are nullable in the schema, so a `LEFT JOIN` was used when joining `sales` to `customer` to avoid dropping sales with no matching customer record. In practice, this dataset has **zero** rows with null `customerkey` or `orderdate` (verified), so this is a defensive choice rather than a fix for an observed issue.
 
-## Main Business Question
+## 🔹Main Business Question
 
 **Why did revenue decline in 2020 and 2023, and what factors contributed to these declines?**
 
@@ -60,7 +60,7 @@ in SQL, as the result was used directly for plotting.
 </details> 
 
 
-## Analysis Approach
+## 🔹Analysis Approach
 
 ![Analysis Approach](/images/2_analysis_approach.png)
 <p align="center"><em>Figure 2. Analysis Approach.</em></p>
@@ -73,9 +73,9 @@ I first decomposed revenue into customer volume and revenue per customer. Since 
 
 Note: this analysis is observational — it identifies which metrics moved together with the revenue decline, not a causal test of why they moved. Statistical significance and external factors are addressed as limitations below.
 
-## Investigation Process
+## 🔹Investigation Process
 
-### 1. Identify the Main Revenue Driver: 
+### 🔸1. Identify the Main Revenue Driver: 
 
 #### What primarily drove the revenue decline?
 
@@ -91,7 +91,7 @@ I first compared the two components of revenue:
 
 Revenue per customer remained relatively stable across the years, while customer volume showed much larger fluctuations. This indicates that changes in the number of customers account for most of the variation in revenue across years, more so than changes in revenue per customer.
 
-### 2. Analyze Customer Behavior: 
+### 🔸2. Analyze Customer Behavior: 
 
 #### Was the decline in customer volume driven by customer acquisition or existing-customer activity?
 
@@ -311,7 +311,7 @@ I segmented the data into cohorts based on each customer's year of first purchas
 - The 23% contribution of the 2022 cohort to existing customer revenue provides an encouraging initial indication of cohort performance, as these customers continued purchasing in their second year as customers.
 
 
-### 3. Analyze Order Activity
+### 🔸3. Analyze Order Activity
 
 #### Was the revenue decline also associated with fewer orders, lower order value, or both?
 
@@ -352,7 +352,7 @@ This provides a more detailed view of customer purchasing activity and helps det
 - These results suggest that the 2023 revenue decline was influenced by a combination of lower order volume and lower revenue per order, rather than being primarily driven by one of the two factors.
 
 
-### 4. Analyze Geographic Performance
+### 🔸4. Analyze Geographic Performance
 
 To determine whether the revenue declines were concentrated in specific markets or reflected a broader pattern, I compared country-level revenue before and during each decline period.
 
@@ -384,7 +384,7 @@ To determine whether the revenue declines were concentrated in specific markets 
 * These insights show that **revenue declines across most countries contributed to the overall revenue decline in both 2020 and 2023**, although the impact varied across markets. Italy was the only exception in 2023, where revenue increased by approximately 5% compared to 2022.
 
 
-## Conclusion
+## 🔹Conclusion
 
 The analysis shows that the revenue declines observed in 2020 and 2023 were driven by different combinations of factors.
 
@@ -398,7 +398,7 @@ Overall, the analysis identifies two distinct revenue decline scenarios. In 2020
 
 As a next step, I would investigate the factors behind customer losses and weaker customer acquisition in 2020, as well as the reasons behind the weaker recovery of key customer cohorts and the decline in revenue per order in 2023. A more detailed analysis of customer and product behavior across countries could help identify the specific drivers behind these changes.
 
-## Limitations
+## 🔹Limitations
 
 **Statistical rigor:** This analysis relies on descriptive comparisons 
 (absolute values, year-over-year percentage change, and trend consistency) 
@@ -421,7 +421,7 @@ showing the largest revenue decline. However, as the exact provenance of
 this dataset (real vs. synthetic) is not confirmed, these external factors 
 are presented as plausible context rather than confirmed causes.
 
-## PostgreSQL Connection
+## 🔹PostgreSQL Connection
 
 The analysis uses a PostgreSQL database containing the sales data. The Power BI dashboard connects directly to this database.
 
@@ -434,7 +434,7 @@ The Power BI model uses the cohort_analysis_view and date table. The sales table
 
 Note: Database credentials are not stored in this repository. Users must connect using their own PostgreSQL credentials.
 
-## Power BI Dashboard
+## 🔹Power BI Dashboard
 
 The analysis is presented through an interactive Power BI dashboard focused on revenue performance, customer behavior, and cohort analysis.
 
@@ -460,7 +460,7 @@ Interactions are configured selectively to keep the analysis focused. On the Das
 
 *Customer-focused analysis providing deeper insight into customer behavior and revenue performance.*
 
-## Tools & Technologies
+## 🔹Tools & Technologies
 
 * **PostgreSQL & DBeaver** — SQL analysis and database management
 * **Python, Pandas** — data analysis and manipulation
